@@ -1,0 +1,75 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h2>{{ isSignUpMode ? 'Create Account' : 'Welcome Back' }}</h2>
+      <p>{{ isSignUpMode ? 'Join the DPP Program' : 'Enter your credentials to access your account' }}</p>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="form.username"
+          required
+          #username="ngModel"
+          [class.error]="f.submitted && username.errors"
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          #password="ngModel"
+          [class.error]="f.submitted && password.errors"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div class="form-group" *ngIf="isSignUpMode">
+        <label for="role">Role</label>
+        <select
+          id="role"
+          name="role"
+          [(ngModel)]="form.role"
+          required
+          class="form-control"
+        >
+          <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+        </select>
+      </div>
+
+      <button type="submit" class="login-btn">
+        {{ isSignUpMode ? 'Sign Up' : 'Log In' }}
+      </button>
+
+      <div class="alert error" *ngIf="isLoginFailed">
+        {{ errorMessage }}
+      </div>
+
+      <div class="alert success" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="login-footer">
+        <p>
+          {{ isSignUpMode ? 'Already have an account?' : "Don't have an account?" }}
+          <a href="javascript:void(0)" (click)="toggleMode()">
+            {{ isSignUpMode ? 'Log In' : 'Sign Up' }}
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
