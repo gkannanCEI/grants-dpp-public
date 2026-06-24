@@ -78,18 +78,6 @@ public class FundingRoundController {
         }
     }
 
-    // ── DELETE /api/funding-rounds/{id} ────────────────────────────────────
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        try {
-            fundingRoundService.delete(id);
-            return ResponseEntity.ok(Map.of("message", "Deleted successfully"));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("message", e.getMessage()));
-        }
-    }
-
     // ── POST /api/funding-rounds/{id}/submit ───────────────────────────────
     @PostMapping("/{id}/submit")
     public ResponseEntity<?> submitForApproval(@PathVariable Long id) {
