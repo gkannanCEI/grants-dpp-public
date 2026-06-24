@@ -35,8 +35,4 @@ export class RoundService {
   update(id: number, data: Partial<Round>): Observable<Round> {
     return this.http.put<Round>(`${this.baseUrl}/${id}`, data);
   }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
 }
